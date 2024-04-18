@@ -4,18 +4,19 @@ require("dotenv").config();
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFound = require("./middleware/not-found");
 const connectDB = require("./db/connect");
+const routes = require("./routes/products");
 
 // JSON middleware
 app.use(express.json());
 
 // ROUTES
 app.get("/", (req, res) => {
-  res.send('<h1>Store API</h1><a href="api/v1/products">Products</a>');
+  res.send(
+    '<h1>Store API</h1><a href="api/v1/products">Products</a><br /><h1>Store API</h1><a href="api/v1/products/static">S Products</a>'
+  );
 });
 
-app.get("/api/v1/products", (req, res) => {
-  res.send("<h1>Im going to show all my products!</h1>");
-});
+app.use("/api/v1/products/", routes);
 
 // MIDDLEWARES
 app.use(notFound);
